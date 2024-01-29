@@ -37,6 +37,22 @@ func safeAccess<T>(to object: T, action: (T) -> Void) where T: Object {
 
 extension Realm {
     
+    // Queries
+    func findByField<T: Object>(_ type: T.Type, field: String = "id", value: String?) -> T? {
+        guard let value = value else { return nil }
+        return objects(type).filter("\(field) == %@", value).first
+    }
+    
+    func findAllByField<T: Object>(_ type: T.Type, field: String, value: Any) -> Results<T>? {
+        return self.objects(type).filter("%K == %@", field, value)
+    }
+    
+    func findAllNotByField<T: Object>(_ type: T.Type, field: String, value: Any) -> Results<T>? {
+        return self.objects(type).filter("%K != %@", field, value)
+    }
+
+    
+    //
     func executeWithRetry(maxRetries: Int = 3, operation: @escaping () -> Void) {
         func attempt(_ currentRetry: Int) {
             if isInWriteTransaction {
@@ -54,6 +70,7 @@ extension Realm {
 
         attempt(0)
     }
+    
     // Improved safeWrite method with error handling
     func safeWrite(_ block: @escaping (Realm) -> Void, completion: ((Bool) -> Void)? = nil) {
         // Ensure that the function is called on the correct thread
@@ -113,6 +130,13 @@ extension Realm {
     }
 
 }
+
+extension Results {
+    func toArray() -> [Element] {
+        return Array(self)
+    }
+}
+
 enum RealmError: Error {
     case invalidThread
 }
@@ -140,7 +164,7 @@ extension Object {
     }
     
     
-    func isRealmObjectValid() -> Bool {
+    func isValid() -> Bool {
         return !self.isInvalidated
     }
     
@@ -154,3 +178,104 @@ extension Object {
 }
 
 
+// Realm listener
+class RealmObserver<T:Object>: ObservableObject {
+    @Published var realmInstance: Realm = newRealm()
+    @Published var notificationToken: NotificationToken?
+    @Published var isObserving: Bool = false
+    @Published var isDeleted: Bool = false
+
+    func observe(objects: Results<T>, onInitial: @escaping (Array<T>) -> Void={_ in}, onChange: @escaping (Array<T>) -> Void={_ in}) {
+        var retryCount = 0
+
+        func attemptObservation() {
+            guard let realm = objects.realm, !realm.isInWriteTransaction else {
+                // Realm is in a write transaction, retry after a delay
+                retryCount += 1
+                if retryCount <= 3 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        print("Realm is in write transaction, attempting to retry observations")
+                        attemptObservation()
+                    }
+                } else {
+                    print("Failed to observe Realm objects after 3 retries.")
+                }
+                return
+            }
+
+            // Observe Results Notifications
+            self.notificationToken = objects.observe { [weak self] (changes: RealmCollectionChange) in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch changes {
+                        case .initial(let results):
+                            onInitial(Array(results))
+                        case .update(let results, _, _, _):
+                            onChange(Array(results))
+                        case .error(let error):
+                            print("\(error)")  // Handle errors appropriately in production code
+                            self.stop()
+                    }
+                }
+            }
+            isObserving = true
+        }
+
+        attemptObservation()
+    }
+
+    
+    func observe(object: T, onChange: @escaping (T) -> Void={_ in}, onDelete: @escaping () -> Void={}) {
+        var retryCount = 0
+        
+        func attemptObservation() {
+            guard let realm = object.realm, !realm.isInWriteTransaction else {
+                // Realm is in a write transaction, retry after a delay
+                retryCount += 1
+                if retryCount <= 3 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        print("Realm is in write transaction, attempting to retry observations")
+                        attemptObservation()
+                    }
+                } else {
+                    print("Failed to observe Realm objects after 3 retries.")
+                }
+                return
+            }
+            
+            
+            self.notificationToken = object.observe { [weak self] change in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch change {
+                        case .change(let obj, _):
+                            if let temp = obj as? T {
+                                onChange(temp)
+                            }
+                        case .deleted:
+                            print("Object has been deleted.")
+                            self.isDeleted = true
+                            onDelete()
+                            self.stop()
+                        case .error(let error):
+                            print("Error: \(error)")
+                            self.stop()
+                        
+                    }
+                }
+            }
+            isObserving = true
+        }
+        attemptObservation()
+    }
+    
+    func stop() {
+        self.notificationToken?.invalidate()
+        self.notificationToken = nil
+        self.isObserving = true
+    }
+
+    deinit {
+        notificationToken?.invalidate()
+    }
+}

@@ -28,6 +28,15 @@
 		FB18F1382B6373A400D89F8D /* StaryNight.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F1372B6373A400D89F8D /* StaryNight.swift */; };
 		FB18F13A2B637ADB00D89F8D /* Sunset.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F1392B637ADB00D89F8D /* Sunset.swift */; };
 		FB18F13C2B637FB900D89F8D /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F13B2B637FB900D89F8D /* ToastMessage.swift */; };
+		FB18F1442B63968400D89F8D /* Mountains.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F1432B63968400D89F8D /* Mountains.swift */; };
+		FB18F1462B63971300D89F8D /* MountainsTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F1452B63971300D89F8D /* MountainsTwo.swift */; };
+		FB18F1482B6397E600D89F8D /* MountainsThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F1472B6397E600D89F8D /* MountainsThree.swift */; };
+		FB18F14A2B6398D900D89F8D /* ColorfulBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F1492B6398D900D89F8D /* ColorfulBackground.swift */; };
+		FB18F14C2B639A4900D89F8D /* DayToNight.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F14B2B639A4900D89F8D /* DayToNight.swift */; };
+		FB18F14E2B643ADB00D89F8D /* SolTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F14D2B643ADB00D89F8D /* SolTextField.swift */; };
+		FB18F1502B644B4D00D89F8D /* StarryNightAnimated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F14F2B644B4D00D89F8D /* StarryNightAnimated.swift */; };
+		FB18F1522B644F0700D89F8D /* PlanetSaturn.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F1512B644F0700D89F8D /* PlanetSaturn.swift */; };
+		FB18F1542B646A2700D89F8D /* ViewExts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18F1532B646A2700D89F8D /* ViewExts.swift */; };
 		FB881A042B465AB400C16198 /* TimedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB881A032B465AB400C16198 /* TimedView.swift */; };
 		FB881A062B465C8D00C16198 /* TimeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB881A052B465C8D00C16198 /* TimeProvider.swift */; };
 		FB881A082B46787400C16198 /* ThoughtBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB881A072B46787400C16198 /* ThoughtBubble.swift */; };
@@ -57,6 +66,15 @@
 		FB18F1372B6373A400D89F8D /* StaryNight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaryNight.swift; sourceTree = "<group>"; };
 		FB18F1392B637ADB00D89F8D /* Sunset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sunset.swift; sourceTree = "<group>"; };
 		FB18F13B2B637FB900D89F8D /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
+		FB18F1432B63968400D89F8D /* Mountains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mountains.swift; sourceTree = "<group>"; };
+		FB18F1452B63971300D89F8D /* MountainsTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MountainsTwo.swift; sourceTree = "<group>"; };
+		FB18F1472B6397E600D89F8D /* MountainsThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MountainsThree.swift; sourceTree = "<group>"; };
+		FB18F1492B6398D900D89F8D /* ColorfulBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorfulBackground.swift; sourceTree = "<group>"; };
+		FB18F14B2B639A4900D89F8D /* DayToNight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayToNight.swift; sourceTree = "<group>"; };
+		FB18F14D2B643ADB00D89F8D /* SolTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolTextField.swift; sourceTree = "<group>"; };
+		FB18F14F2B644B4D00D89F8D /* StarryNightAnimated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarryNightAnimated.swift; sourceTree = "<group>"; };
+		FB18F1512B644F0700D89F8D /* PlanetSaturn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetSaturn.swift; sourceTree = "<group>"; };
+		FB18F1532B646A2700D89F8D /* ViewExts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExts.swift; sourceTree = "<group>"; };
 		FB881A032B465AB400C16198 /* TimedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimedView.swift; sourceTree = "<group>"; };
 		FB881A052B465C8D00C16198 /* TimeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeProvider.swift; sourceTree = "<group>"; };
 		FB881A072B46787400C16198 /* ThoughtBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThoughtBubble.swift; sourceTree = "<group>"; };
@@ -107,6 +125,7 @@
 		FB18F11B2B61F57800D89F8D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FB18F14D2B643ADB00D89F8D /* SolTextField.swift */,
 				FBDF0DEA2B2299B300FADE44 /* ChatView.swift */,
 				FBDF0DE82B22982000FADE44 /* FloatingEmoji.swift */,
 				FB18F11E2B61F5C000D89F8D /* Shapes */,
@@ -114,6 +133,13 @@
 				FB18F1372B6373A400D89F8D /* StaryNight.swift */,
 				FB18F1392B637ADB00D89F8D /* Sunset.swift */,
 				FB18F13B2B637FB900D89F8D /* ToastMessage.swift */,
+				FB18F1432B63968400D89F8D /* Mountains.swift */,
+				FB18F1452B63971300D89F8D /* MountainsTwo.swift */,
+				FB18F1472B6397E600D89F8D /* MountainsThree.swift */,
+				FB18F1492B6398D900D89F8D /* ColorfulBackground.swift */,
+				FB18F14B2B639A4900D89F8D /* DayToNight.swift */,
+				FB18F14F2B644B4D00D89F8D /* StarryNightAnimated.swift */,
+				FB18F1532B646A2700D89F8D /* ViewExts.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -122,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				FB18F11C2B61F58A00D89F8D /* CloudShape.swift */,
+				FB18F1512B644F0700D89F8D /* PlanetSaturn.swift */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -266,11 +293,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB18F1462B63971300D89F8D /* MountainsTwo.swift in Sources */,
+				FB18F14A2B6398D900D89F8D /* ColorfulBackground.swift in Sources */,
+				FB18F1442B63968400D89F8D /* Mountains.swift in Sources */,
 				FB18F11F2B62286900D89F8D /* Assets.xcassets in Sources */,
 				FBDF0DD92B2291D300FADE44 /* ContentView.swift in Sources */,
 				FB881A062B465C8D00C16198 /* TimeProvider.swift in Sources */,
 				FBDF0DE92B22982000FADE44 /* FloatingEmoji.swift in Sources */,
 				FB18F11A2B61B0FA00D89F8D /* Thought.swift in Sources */,
+				FB18F1542B646A2700D89F8D /* ViewExts.swift in Sources */,
+				FB18F14E2B643ADB00D89F8D /* SolTextField.swift in Sources */,
 				FB18F12B2B62DB2600D89F8D /* FireData.swift in Sources */,
 				FB18F1342B62E49D00D89F8D /* Extentions.swift in Sources */,
 				FBDF0DE72B22980100FADE44 /* GlobalPositioningSystem.swift in Sources */,
@@ -278,6 +310,7 @@
 				FB18F13A2B637ADB00D89F8D /* Sunset.swift in Sources */,
 				FB18F11D2B61F58A00D89F8D /* CloudShape.swift in Sources */,
 				FBDF0DEB2B2299B300FADE44 /* ChatView.swift in Sources */,
+				FB18F1502B644B4D00D89F8D /* StarryNightAnimated.swift in Sources */,
 				FB881A042B465AB400C16198 /* TimedView.swift in Sources */,
 				FB18F13C2B637FB900D89F8D /* ToastMessage.swift in Sources */,
 				FB18F1362B634A3500D89F8D /* KeyboardListener.swift in Sources */,
@@ -285,10 +318,13 @@
 				FB18F1222B62D97400D89F8D /* FirebaseThoughtsService.swift in Sources */,
 				FB18F1382B6373A400D89F8D /* StaryNight.swift in Sources */,
 				FB881A082B46787400C16198 /* ThoughtBubble.swift in Sources */,
+				FB18F14C2B639A4900D89F8D /* DayToNight.swift in Sources */,
 				FBAE62B12B2A905E00E008D5 /* FallingThoughts.swift in Sources */,
 				FB18F1272B62D9D500D89F8D /* FireParser.swift in Sources */,
 				FB18F1292B62DA0400D89F8D /* RealmInstance.swift in Sources */,
 				FBDF0DED2B229E6100FADE44 /* Channels.swift in Sources */,
+				FB18F1522B644F0700D89F8D /* PlanetSaturn.swift in Sources */,
+				FB18F1482B6397E600D89F8D /* MountainsThree.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,12 +457,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"Ohana/Preview Content\"";
 				DEVELOPMENT_TEAM = 248J2GKL56;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Ohana Together";
+				INFOPLIST_KEY_CFBundleDisplayName = "Ohana Thoughts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -436,7 +472,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = io.griff.ohana;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -452,12 +488,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"Ohana/Preview Content\"";
 				DEVELOPMENT_TEAM = 248J2GKL56;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Ohana Together";
+				INFOPLIST_KEY_CFBundleDisplayName = "Ohana Thoughts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -467,7 +503,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = io.griff.ohana;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

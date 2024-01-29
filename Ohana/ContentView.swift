@@ -9,13 +9,38 @@ import SwiftUI
 import RealmSwift
 
 struct ContentView: View {
-    
+    @Environment(\.scenePhase) var deviceState
     @State var currentMessage: String = ""
-    @ObservedResults(Thought.self) var thoughts
+//    @ObservedResults(Thought.self) var thoughts
     
     @StateObject var thoughtsObserver = FirebaseThoughtsService()
     @State var keyboardIsShowing = false
     @State var keyboardHeight: CGFloat = 0.0
+    
+    @State private var filterIsOn: Bool = false
+    @State private var currentFilter = "General"
+    @State private var filters: [String] = [
+        "General",
+        "Happy",
+        "Sad",
+        "Angry",
+        "Anxious",
+        "Excited",
+        "Grateful",
+        "Hopeful",
+        "Relaxed",
+        "Stressed",
+        "Confused",
+        "Disappointed",
+        "Inspired",
+        "Lonely",
+        "Proud",
+        "Curious",
+        "Frustrated",
+        "Amused",
+        "Overwhelmed",
+        "Content"
+    ]
     
     @State var resetFlag = false
     func resetView() {
@@ -32,47 +57,82 @@ struct ContentView: View {
         
         GlobalPositioningZStack { geo, gps in
             ZStack {
-                
-                ForEach(thoughts, id: \.id) { thought in
-                    ThoughtView(message: thought.message,
-                                screenHeight: gps.screenSize.height,
-                                startTime: thought.startDate,
-                                endTime: thought.endDate)
+                ForEach(self.thoughtsObserver.thoughts, id: \.id) { thought in
+                    if !thought.isInvalidated {
+                        ThoughtView(
+                            curFilter: $currentFilter,
+                            filterIsOn: $filterIsOn,
+                            thought: thought,
+                            message: thought.message,
+                            likeCount: thought.likes,
+                            screenHeight: gps.screenSize.height,
+                            startTime: thought.startDate,
+                            endTime: thought.endDate
+                        )
+                    }
                 }
-                .zIndex(10.0)
+                .zIndex(2.0)
                 .clearSectionBackground()
-
+                
+                HStack {
+                    
+                    Toggle("Filter", isOn: $filterIsOn)
+                        .foregroundColor(.white)
+                    
+                    FilterStringPicker(strings: filters, selectedString: $currentFilter)
+                        .frame(height: 150)
+                    
+                }
+                .padding()
+                .frame(width: filterIsOn ? 350 : 100, height: 75)
+                .background(
+                    RoundedRectangle(cornerRadius: 15)
+                        .foregroundColor(Color.black.opacity(1))
+                        .shadow(radius: 5)
+                )
+                .position(gps.getCoordinate(for: .bottomLeft, offsetX: filterIsOn ? 200 : 75, offsetY: 125))
+                
                 ChatView() { m in
                     currentMessage = m
                 }
                 .clearSectionBackground()
-                .zIndex(2.0)
+                .zIndex(10.0)
                 .position(gps.getCoordinate(for: .bottomCenter, offsetY: keyboardIsShowing ? (keyboardHeight + 50) : 50))
                 
             }
             .frame(width: gps.screenSize.width, height: gps.screenSize.height)
-            .background(getBackground())
+            .background(StarryNightAnimatedView())
             .onAppear() {
-                thoughtsObserver.startObserving(realm: self.thoughts.realm?.thaw())
+                self.thoughtsObserver.startObserving()
             }
             
         }
+        .onChange(of: self.deviceState) { newScenePhase in
+            switch newScenePhase {
+                case .active:
+                    print("App is in foreground")
+                    self.thoughtsObserver.startObserving()
+                case .inactive:
+                    print("App is inactive")
+                case .background:
+                    print("App is in background")
+                    self.thoughtsObserver.stopObserving()
+                @unknown default:
+                    print("A new case was added that we're not handling")
+            }
+        }
         .keyboardListener(
             onAppear: { height in
-                // Handle keyboard appearance (e.g., adjust view)
                 print("Keyboard appeared with height: \(height)")
                 keyboardHeight = height
                 keyboardIsShowing = true
             },
             onDisappear: { height in
-                // Handle keyboard disappearance
                 print("Keyboard disappeared")
                 keyboardHeight = height
                 keyboardIsShowing = false
             }
         )
-        
-        
     }
 }
 
@@ -80,9 +140,4 @@ struct ContentView: View {
 //    ContentView()
 //}
 
-extension View {
-    // Method to set the position of the view based on a specified ScreenArea
-    func position(using gps: GlobalPositioningSystem, at area: ScreenArea, offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> some View {
-        self.position(gps.getCoordinate(for: area, offsetX: offsetX, offsetY: offsetY))
-    }
-}
+

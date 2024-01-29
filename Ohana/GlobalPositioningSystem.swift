@@ -120,6 +120,8 @@ enum ScreenArea {
     case center, topRight, topLeft, bottomRight, bottomLeft, bottomCenter, topCenter
 }
 
+
+
 struct GlobalPositioningZStack<Content: View>: View {
     let content: (GeometryProxy, GlobalPositioningSystem) -> Content
 

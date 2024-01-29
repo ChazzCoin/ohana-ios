@@ -22,10 +22,41 @@ struct ChatView: View {
     @State private var timeInts: [Int] = Array(1...60)
     @State private var currentTimeInt = 1
     @State private var currentTimeString = "Minutes"
-    @State private var timeStrings: [String] = ["Seconds", "Minutes", "Hours", "Days", "Weeks", "Months", "Years"]
+    @State private var timeStrings: [String] = [
+        "Seconds", 
+        "Minutes",
+        "Hours",
+        "Days",
+        "Weeks",
+        "Months",
+        "Years"
+    ]
+    
+    @State private var currentFilter = "General"
+    @State private var filters: [String] = [
+        "General",
+        "Happy",
+        "Sad",
+        "Angry",
+        "Anxious",
+        "Excited",
+        "Grateful",
+        "Hopeful",
+        "Relaxed",
+        "Stressed",
+        "Confused",
+        "Disappointed",
+        "Inspired",
+        "Lonely",
+        "Proud",
+        "Curious",
+        "Frustrated",
+        "Amused",
+        "Overwhelmed",
+        "Content"
+    ]
     
     @State var showTimePicker: Bool = false
-    
     @State var hintText = "Share a thought..."
 
     var body: some View {
@@ -45,7 +76,12 @@ struct ChatView: View {
                         }
                         Spacer()
                         
-                        Text("Your thought will fall for \(currentTimeInt) \(currentTimeString)")
+                        FilterStringPicker(strings: filters, selectedString: $currentFilter)
+                            .frame(width: 200)
+                        
+                        Spacer()
+                        
+                        Text("Your \(currentFilter) thought will fall for \(currentTimeInt) \(currentTimeString)")
                             .foregroundColor(Color.blue)
                         
                         Spacer()
@@ -77,23 +113,20 @@ struct ChatView: View {
                         
                     }.background(
                         RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(Color.black.opacity(0.45))
+                            .foregroundColor(Color.black.opacity(1))
                             .shadow(radius: 5)
                     )
-                    .frame(width: 300, height: 200)
+                    .frame(width: 300, height: 350)
                     .padding(.leading)
                     .padding(.trailing)
                 }
+                .zIndex(15.0)
+                .offset(y: -100)
             }
             
 
             HStack {
-                TextField(hintText, text: $messageText, onEditingChanged: { isEditing in
-                    if !isEditing {
-                        
-                    }
-                })
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                SolTextField(hintText, text: $messageText)
 
                 Button(action: {
                     
@@ -130,6 +163,7 @@ struct ChatView: View {
 
         // Create a Thought object
         let newThought = Thought(message: messageText, startTime: startTime.timeIntervalSince1970, endTime: endTime.timeIntervalSince1970)
+        newThought.category = currentFilter
         
         firebaseDatabase { db in
             db.save(collection: "thoughts", id: newThought.id, obj: newThought)
@@ -187,9 +221,11 @@ struct FilterStringPicker: View {
     }
 
     var body: some View {
-        Picker(selection: $selectedString, label: Text("Select a Period")) {
-            ForEach(strings, id: \.self) { number in
-                Text("\(number)").tag(number)
+        Picker(selection: $selectedString, label: Text("")) {
+            ForEach(strings, id: \.self) { str in
+                Text("\(str)")
+                    .foregroundColor(.white)
+                    .tag(str)
             }
         }
         .pickerStyle(WheelPickerStyle())
@@ -207,9 +243,11 @@ struct FilterIntPicker: View {
     }
 
     var body: some View {
-        Picker(selection: $selectedNumber, label: Text("Select a Number")) {
+        Picker(selection: $selectedNumber, label: Text("")) {
             ForEach(numbers, id: \.self) { number in
-                Text("\(number)").tag(number)
+                Text("\(number)")
+                    .foregroundColor(.white)
+                    .tag(number)
             }
         }
         .pickerStyle(WheelPickerStyle())

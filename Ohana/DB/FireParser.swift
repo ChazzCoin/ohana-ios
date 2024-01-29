@@ -20,6 +20,7 @@ extension DataSnapshot {
     func toLudiObjects<T: Object>(_ type: T.Type, realm: Realm? = nil) -> List<T>? {
         let hashmap = self.toHashMap()
         let list = List<T>()
+        
         for (_, value) in hashmap {
             if let tempHash = value as? [String: Any] {
                 let temp: T? = tempHash.toRealmObject(type, realmParameter: realm)
@@ -28,6 +29,7 @@ extension DataSnapshot {
                 }
             }
         }
+        print(list)
         return list.isEmpty ? nil : list
     }
     
@@ -38,21 +40,7 @@ extension DataSnapshot {
            onComplete(tryme)
         }
     }
-
-    // Master toHashMap Helper Function
-    func toHashMap1() -> [String: Any] {
-        var hashMap = [String: Any]()
-        print("!! Snapshot: \(self)")
-        print("!! Snapshot Child Count: \(self.childrenCount)")
-        print("!! Snapshot Has Child: \(self.hasChildren())")
-        for child in children {
-            let c = (child as? DataSnapshot)
-            if let key = c?.key {
-                hashMap[key] = c?.value
-            }
-        }
-        return hashMap
-    }
+   
     func toHashMap() -> [String: Any] {
         var hashMap = [String: Any]()
         
@@ -79,7 +67,6 @@ extension Dictionary where Key == String, Value == Any {
             realm.safeWrite { _ in
                 object = realm.create(type, value: self, update: .all)
                 realm.refresh()
-//                CodiChannel.REALM_ON_CHANGE.send(value: self["id"] ?? "nil")
             }
             return object
         } else {
@@ -88,10 +75,9 @@ extension Dictionary where Key == String, Value == Any {
             realm.safeWrite { _ in
                 object = realm.create(type, value: self, update: .all)
                 realm.refresh()
-//                CodiChannel.REALM_ON_CHANGE.send(value: self["id"] ?? "nil")
             }
             return object
         }
-        }
+    }
 }
 
